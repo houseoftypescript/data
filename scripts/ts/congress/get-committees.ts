@@ -4,8 +4,8 @@ import {
   BASE_URL,
   CHAMBERS,
   CURRENT_CONGRESS,
-} from './configs';
-import { writeFileCSV } from './utils';
+} from '../configs';
+import { writeFileCSV } from '../utils';
 
 const main = async () => {
   for (let congress = CURRENT_CONGRESS; congress >= 80; congress--) {

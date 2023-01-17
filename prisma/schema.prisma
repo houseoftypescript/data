@@ -8,17 +8,20 @@ generator client {
 }
 
 model Congress {
-  congress Int     @id
+  congress Int
   chamber  Chamber
   title    Title
   member   Member  @relation(fields: [memberId], references: [id])
   memberId String
+
+  @@id([congress, memberId])
 }
 
 enum Title {
   REPRESENTATIVE
   SENATOR
   DELEGATE
+  RESIDENT_COMMISSIONER
 }
 
 enum Chamber {
@@ -31,7 +34,7 @@ model Member {
   firstName   String
   middleName  String
   lastName    String
-  dateOfBirth DateTime
+  dateOfBirth String
   gender      Gender
   state       State      @relation(fields: [stateId], references: [id])
   stateId     String
@@ -62,4 +65,5 @@ model State {
 enum StateLevel {
   STATE
   TERRITORY
+  FEDERAL_DISTRICT
 }

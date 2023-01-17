@@ -1,5 +1,6 @@
 import { writeFileSync } from 'fs';
 import { parse } from 'json2csv';
+import csv from 'csvtojson';
 
 export const writeFileCSV = (csvFile: string, data: any[]) => {
   const fields: string[] = [];
@@ -32,5 +33,15 @@ export const writeFileCSV = (csvFile: string, data: any[]) => {
     writeFileSync(csvFile, csv);
   } catch (err) {
     console.error(err);
+  }
+};
+
+export const readFileCSV = async (csvFilePath: string) => {
+  try {
+    const array = await csv().fromFile(csvFilePath);
+    return array;
+  } catch (error) {
+    console.error(error);
+    return [];
   }
 };
