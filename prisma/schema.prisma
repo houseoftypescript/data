@@ -7,12 +7,13 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Congress {
+model CongressMember {
   congress Int
   chamber  Chamber
   title    Title
   member   Member  @relation(fields: [memberId], references: [id])
   memberId String
+  district String
 
   @@id([congress, memberId])
 }
@@ -30,16 +31,16 @@ enum Chamber {
 }
 
 model Member {
-  id          String     @id
+  id          String           @id
   firstName   String
   middleName  String
   lastName    String
   dateOfBirth String
   gender      Gender
-  state       State      @relation(fields: [stateId], references: [id])
+  state       State            @relation(fields: [stateId], references: [id])
   stateId     String
   party       Party
-  Congress    Congress[]
+  Congress    CongressMember[]
 }
 
 enum Gender {

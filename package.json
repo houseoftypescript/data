@@ -44,6 +44,7 @@
     "eslint-config-next": "13.1.2",
     "husky": "8.0.3",
     "json2csv": "5.0.7",
+    "kill-port": "2.0.1",
     "postcss": "8.4.21",
     "prettier": "2.8.3",
     "pretty-quick": "3.1.3",

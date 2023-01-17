@@ -53,17 +53,19 @@ const migrateMembers = async (
         ? 'senator'
         : memberCSV.title;
       if (member !== null) {
-        await prismaClient.congress.upsert({
+        await prismaClient.congressMember.upsert({
           create: {
             congress,
             chamber: chamber.toUpperCase() as Chamber,
             title: title.toUpperCase().replaceAll(' ', '_') as Title,
+            district: memberCSV.district || 'at-large',
             memberId: member.id,
           },
           update: {
             congress,
             chamber: chamber.toUpperCase() as Chamber,
             title: title.toUpperCase().replaceAll(' ', '_') as Title,
+            district: memberCSV.district || 'at-large',
             memberId: member.id,
           },
           where: { congress_memberId: { congress, memberId } },
@@ -78,7 +80,7 @@ const migrateMembers = async (
 const main = async () => {
   await prismaClient.$connect();
 
-  for (let congress = CURRENT_CONGRESS; congress >= 80; congress--) {
+  for (let congress = 80; congress <= CURRENT_CONGRESS; congress++) {
     for (const chamber of CHAMBERS) {
       const membersCSV = await readFileCSV(
         `./data/congress/${congress}/${chamber}/members.csv`
