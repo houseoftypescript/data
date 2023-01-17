@@ -7,7 +7,59 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model User {
-  id       String @id
-  username String @unique
+model Congress {
+  congress Int     @id
+  chamber  Chamber
+  title    Title
+  member   Member  @relation(fields: [memberId], references: [id])
+  memberId String
+}
+
+enum Title {
+  REPRESENTATIVE
+  SENATOR
+  DELEGATE
+}
+
+enum Chamber {
+  HOUSE
+  SENATE
+}
+
+model Member {
+  id          String     @id
+  firstName   String
+  middleName  String
+  lastName    String
+  dateOfBirth DateTime
+  gender      Gender
+  state       State      @relation(fields: [stateId], references: [id])
+  stateId     String
+  party       Party
+  Congress    Congress[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Party {
+  DEMOCRATIC
+  REPUBLICAN
+  INDEPENDENT
+}
+
+model State {
+  id      String     @id
+  name    String
+  capital String
+  largest String
+  level   StateLevel
+  Member  Member[]
+}
+
+enum StateLevel {
+  STATE
+  TERRITORY
 }
