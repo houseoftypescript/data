@@ -26,6 +26,7 @@
     "@mui/material": "5.11.4",
     "@next/font": "13.1.2",
     "@prisma/client": "4.8.1",
+    "axios": "1.2.2",
     "next": "13.1.2",
     "next-seo": "5.15.0",
     "pino": "8.8.0",
@@ -33,6 +34,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/json2csv": "5.0.3",
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
@@ -40,6 +42,7 @@
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.2",
     "husky": "8.0.3",
+    "json2csv": "5.0.7",
     "postcss": "8.4.21",
     "prettier": "2.8.3",
     "pretty-quick": "3.1.3",
