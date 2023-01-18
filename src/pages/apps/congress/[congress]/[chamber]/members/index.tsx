@@ -88,6 +88,9 @@ const HousePage: NextPage<MembersPageProps> = ({ members }) => {
       .filter((member: any) => member[groupKey] === group)
       .sort((a, b) => {
         if (a.party === b.party) {
+          if (a.stateId === b.stateId) {
+            return a.seniority > b.seniority ? 1 : -1;
+          }
           return a.stateId > b.stateId ? 1 : -1;
         }
         return a.party > b.party ? 1 : -1;
