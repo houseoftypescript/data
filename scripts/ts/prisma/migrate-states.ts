@@ -12,7 +12,7 @@ const main = async () => {
       name: state.name,
       capital: state.capital,
       largest: state.largest,
-      level: state.level.toUpperCase(),
+      level: state.level.toUpperCase().replaceAll(' ', '_'),
     };
   });
   await prismaClient.state.createMany({ data: states });

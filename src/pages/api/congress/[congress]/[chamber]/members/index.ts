@@ -17,7 +17,7 @@ const handler = async (
       (request.query.chamber as string) || ''
     ).toUpperCase() as Chamber;
     const members = await prismaClient.congressMember.findMany({
-      include: { member: { include: { state: true } } },
+      include: { member: true, state: true },
       where: { congress: parseInt(congress), chamber },
     });
     await prismaClient.$disconnect();

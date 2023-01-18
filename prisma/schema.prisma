@@ -8,14 +8,24 @@ generator client {
 }
 
 model CongressMember {
-  congress Int
-  chamber  Chamber
-  title    Title
-  member   Member  @relation(fields: [memberId], references: [id])
-  memberId String
-  district String
+  congress  Int
+  member    Member  @relation(fields: [memberId], references: [id])
+  memberId  String
+  chamber   Chamber
+  title     Title
+  party     Party
+  state     State   @relation(fields: [stateId], references: [id])
+  stateId   String
+  district  String  @default("at-large")
+  seniority Int     @default(0)
 
   @@id([congress, memberId])
+}
+
+enum Party {
+  DEMOCRATIC
+  REPUBLICAN
+  INDEPENDENT
 }
 
 enum Title {
@@ -37,9 +47,6 @@ model Member {
   lastName    String
   dateOfBirth String
   gender      Gender
-  state       State            @relation(fields: [stateId], references: [id])
-  stateId     String
-  party       Party
   Congress    CongressMember[]
 }
 
@@ -48,19 +55,13 @@ enum Gender {
   FEMALE
 }
 
-enum Party {
-  DEMOCRATIC
-  REPUBLICAN
-  INDEPENDENT
-}
-
 model State {
-  id      String     @id
-  name    String
-  capital String
-  largest String
-  level   StateLevel
-  Member  Member[]
+  id             String           @id
+  name           String           @default("")
+  capital        String           @default("")
+  largest        String           @default("")
+  level          StateLevel
+  CongressMember CongressMember[]
 }
 
 enum StateLevel {

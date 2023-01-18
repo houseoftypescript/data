@@ -1,3 +1,5 @@
+export const CHAMBERS = ['house', 'senate'];
+
 export const configs = {
   site_name: 'Starter',
   title: 'Nextjs Starter',

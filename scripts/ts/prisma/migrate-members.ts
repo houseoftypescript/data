@@ -28,19 +28,12 @@ const migrateMembers = async (
       if (member === null) {
         const gender: Gender =
           memberCSV.gender.toUpperCase() === 'M' ? 'MALE' : 'FEMALE';
-        const party: Party = parties[memberCSV.party] || 'INDEPENDENT';
         const update = {
           firstName: memberCSV.first_name as string,
           middleName: memberCSV.middle_name as string,
           lastName: memberCSV.last_name as string,
           dateOfBirth: memberCSV.date_of_birth as string,
           gender,
-          state: {
-            connect: {
-              id: memberCSV.state.toUpperCase() as string,
-            },
-          },
-          party,
         };
         const create = { ...update, id: memberId };
         member = await prismaClient.member.upsert({
@@ -52,6 +45,7 @@ const migrateMembers = async (
       const title = memberCSV.title.toLowerCase().includes('senator')
         ? 'senator'
         : memberCSV.title;
+      const party: Party = parties[memberCSV.party] || 'INDEPENDENT';
       if (member !== null) {
         await prismaClient.congressMember.upsert({
           create: {
@@ -60,6 +54,9 @@ const migrateMembers = async (
             title: title.toUpperCase().replaceAll(' ', '_') as Title,
             district: memberCSV.district || 'at-large',
             memberId: member.id,
+            party,
+            seniority: parseInt(memberCSV.seniority, 10) || 0,
+            stateId: memberCSV.state.toUpperCase() as string,
           },
           update: {
             congress,
@@ -67,6 +64,9 @@ const migrateMembers = async (
             title: title.toUpperCase().replaceAll(' ', '_') as Title,
             district: memberCSV.district || 'at-large',
             memberId: member.id,
+            party,
+            seniority: parseInt(memberCSV.seniority, 10) || 0,
+            stateId: memberCSV.state.toUpperCase() as string,
           },
           where: { congress_memberId: { congress, memberId } },
         });
