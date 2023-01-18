@@ -13,7 +13,7 @@ const DetailsPage: NextPage = () => {
     <main className="container mx-auto p-8">
       <Breadcrumbs />
       <div className="grid grid-cols-2 gap-4">
-        {['commitees', 'members'].map((page) => {
+        {['committees', 'members'].map((page) => {
           return (
             <Link
               key={page}

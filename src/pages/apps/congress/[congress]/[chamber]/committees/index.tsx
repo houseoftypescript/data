@@ -31,10 +31,6 @@ const partyColor: Record<Party, string> = {
   INDEPENDENT: 'bg-gray-500',
 };
 
-const sortByMap: Record<string, string> = {
-  seniority: 'group',
-};
-
 const Members: React.FC<{
   membersByGroups: { group: string; members: CongressMember[] }[];
   openModal: (id: string) => void;
@@ -82,19 +78,14 @@ const HousePage: NextPage<MembersPageProps> = ({ members }) => {
     ...new Set(members.map((congressMember: any) => congressMember[groupKey])),
   ].sort();
   const membersByGroups = groups.map((group) => {
-    const membersByGroup = members
-      .filter((member: any) => member[groupKey] === group)
-      .sort((a, b) => (a.party > b.party ? 1 : -1));
+    const membersByGroup = members.filter(
+      (member: any) => member[groupKey] === group
+    );
     return { group, members: membersByGroup };
   });
-  const sortByKey = sortByMap[groupKey] || '';
-  console.log('sortByKey', sortByKey);
-  membersByGroups.sort((a: any, b: any) => {
-    if (sortByKey === '') {
-      return a.members.length < b.members.length ? 1 : -1;
-    }
-    return a[sortByKey] < b[sortByKey] ? 1 : -1;
-  });
+  membersByGroups.sort((a, b) =>
+    a.members.length < b.members.length ? 1 : -1
+  );
 
   return (
     <main className="container mx-auto p-8">

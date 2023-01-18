@@ -11,9 +11,11 @@ const CongressPage: NextPage<{ congress: number[] }> = ({ congress }) => {
       <div className="grid grid-cols-12 gap-4">
         {congress.map((value) => {
           return (
-            <Link key={value} href={`/apps/congress/${value}`}>
-              <Button variant="outlined">{value}</Button>
-            </Link>
+            <div key={value} className="col-span-1">
+              <Link href={`/apps/congress/${value}`}>
+                <Button variant="outlined">{value}</Button>
+              </Link>
+            </div>
           );
         })}
       </div>
