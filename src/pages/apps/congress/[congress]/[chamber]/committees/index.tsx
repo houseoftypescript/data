@@ -15,6 +15,7 @@ import {
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Breadcrumbs from '../../../../../../components/organisms/Breadcrumbs';
+import AppsTemplate from '../../../../../../components/templates/Apps';
 
 export type ExtendedCongressMember = CongressMember & {
   member: Member;
@@ -88,59 +89,61 @@ const HousePage: NextPage<MembersPageProps> = ({ members }) => {
   );
 
   return (
-    <main className="container mx-auto p-8">
-      <Breadcrumbs />
-      <FormControl fullWidth>
-        <InputLabel id="group-label">Group</InputLabel>
-        <Select
-          labelId="group-label"
-          id="group-select"
-          value={groupKey}
-          label="Group"
-          onChange={(event) => setGroup(event.target.value)}
-        >
-          <MenuItem value="party">Party</MenuItem>
-          <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="seniority">Seniorty</MenuItem>
-          <MenuItem value="stateId">State</MenuItem>
-        </Select>
-      </FormControl>
-      <Members
-        membersByGroups={membersByGroups}
-        openModal={(id: string) => {
-          setOpen(true);
-          const member = members.find((member) => member.memberId === id);
-          setMember(member);
-        }}
-      />
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        className="flex items-center justify-center"
-      >
-        <Box className="bg-white p-8 rounded max-w-lg w-full">
-          <Typography
-            id="title"
-            variant="h6"
-            component="h2"
-            className="text-center"
+    <AppsTemplate>
+      <main className="container mx-auto p-8">
+        <Breadcrumbs />
+        <FormControl fullWidth>
+          <InputLabel id="group-label">Group</InputLabel>
+          <Select
+            labelId="group-label"
+            id="group-select"
+            value={groupKey}
+            label="Group"
+            onChange={(event) => setGroup(event.target.value)}
           >
-            {member?.member.firstName} {member?.member.middleName}{' '}
-            {member?.member.lastName} ({member?.party})
-          </Typography>
-          <Typography component="h3" className="text-center">
-            {member?.state.name}
-          </Typography>
-          <Image
-            src={`https://theunitedstates.io/images/congress/original/${member?.memberId}.jpg`}
-            alt={member?.memberId || 'Alt'}
-            width={450}
-            height={550}
-            className="rounded mt-4 w-1/2 mx-auto"
-          />
-        </Box>
-      </Modal>
-    </main>
+            <MenuItem value="party">Party</MenuItem>
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="seniority">Seniorty</MenuItem>
+            <MenuItem value="stateId">State</MenuItem>
+          </Select>
+        </FormControl>
+        <Members
+          membersByGroups={membersByGroups}
+          openModal={(id: string) => {
+            setOpen(true);
+            const member = members.find((member) => member.memberId === id);
+            setMember(member);
+          }}
+        />
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          className="flex items-center justify-center"
+        >
+          <Box className="bg-white p-8 rounded max-w-lg w-full">
+            <Typography
+              id="title"
+              variant="h6"
+              component="h2"
+              className="text-center"
+            >
+              {member?.member.firstName} {member?.member.middleName}{' '}
+              {member?.member.lastName} ({member?.party})
+            </Typography>
+            <Typography component="h3" className="text-center">
+              {member?.state.name}
+            </Typography>
+            <Image
+              src={`https://theunitedstates.io/images/congress/original/${member?.memberId}.jpg`}
+              alt={member?.memberId || 'Alt'}
+              width={450}
+              height={550}
+              className="rounded mt-4 w-1/2 mx-auto"
+            />
+          </Box>
+        </Modal>
+      </main>
+    </AppsTemplate>
   );
 };
 

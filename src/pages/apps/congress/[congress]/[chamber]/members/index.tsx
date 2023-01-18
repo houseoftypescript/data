@@ -15,6 +15,7 @@ import {
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Breadcrumbs from '../../../../../../components/organisms/Breadcrumbs';
+import AppsTemplate from '../../../../../../components/templates/Apps';
 
 export type ExtendedCongressMember = CongressMember & {
   member: Member;
@@ -38,7 +39,7 @@ const sortByMap: Record<string, string> = {
 const Members: React.FC<{
   membersByGroups: { group: string; members: CongressMember[] }[];
   openModal: (id: string) => void;
-}> = ({ membersByGroups = [], openModal = (id: string) => {} }) => {
+}> = ({ membersByGroups = [], openModal = (_id: string) => {} }) => {
   return (
     <div className="grid grid-cols-2">
       {membersByGroups.map((membersByGroup) => {
@@ -51,17 +52,18 @@ const Members: React.FC<{
             <div className={`grid grid-cols-12`}>
               {membersByGroup.members.map((member) => {
                 const party = member.party;
+                const bgColor = partyColor[party];
                 return (
                   <div
                     key={member.memberId}
                     className="flex justify-center items-center py-2"
                   >
                     <div
-                      onClick={() => {
-                        openModal(member.memberId);
-                      }}
-                      className={`cursor-pointer w-8 h-8 border rounded-full ${partyColor[party]}`}
-                    />
+                      onClick={() => openModal(member.memberId)}
+                      className={`cursor-pointer w-8 h-8 rounded-full text-white text-center leading-8 text-xs ${bgColor}`}
+                    >
+                      {member.stateId}
+                    </div>
                   </div>
                 );
               })}
@@ -84,11 +86,15 @@ const HousePage: NextPage<MembersPageProps> = ({ members }) => {
   const membersByGroups = groups.map((group) => {
     const membersByGroup = members
       .filter((member: any) => member[groupKey] === group)
-      .sort((a, b) => (a.party > b.party ? 1 : -1));
+      .sort((a, b) => {
+        if (a.party === b.party) {
+          return a.stateId > b.stateId ? 1 : -1;
+        }
+        return a.party > b.party ? 1 : -1;
+      });
     return { group, members: membersByGroup };
   });
   const sortByKey = sortByMap[groupKey] || '';
-  console.log('sortByKey', sortByKey);
   membersByGroups.sort((a: any, b: any) => {
     if (sortByKey === '') {
       return a.members.length < b.members.length ? 1 : -1;
@@ -97,59 +103,61 @@ const HousePage: NextPage<MembersPageProps> = ({ members }) => {
   });
 
   return (
-    <main className="container mx-auto p-8">
-      <Breadcrumbs />
-      <FormControl fullWidth>
-        <InputLabel id="group-label">Group</InputLabel>
-        <Select
-          labelId="group-label"
-          id="group-select"
-          value={groupKey}
-          label="Group"
-          onChange={(event) => setGroup(event.target.value)}
-        >
-          <MenuItem value="party">Party</MenuItem>
-          <MenuItem value="title">Title</MenuItem>
-          <MenuItem value="seniority">Seniorty</MenuItem>
-          <MenuItem value="stateId">State</MenuItem>
-        </Select>
-      </FormControl>
-      <Members
-        membersByGroups={membersByGroups}
-        openModal={(id: string) => {
-          setOpen(true);
-          const member = members.find((member) => member.memberId === id);
-          setMember(member);
-        }}
-      />
-      <Modal
-        open={open}
-        onClose={() => setOpen(false)}
-        className="flex items-center justify-center"
-      >
-        <Box className="bg-white p-8 rounded max-w-lg w-full">
-          <Typography
-            id="title"
-            variant="h6"
-            component="h2"
-            className="text-center"
+    <AppsTemplate>
+      <main className="container mx-auto p-8">
+        <Breadcrumbs />
+        <FormControl fullWidth>
+          <InputLabel id="group-label">Group</InputLabel>
+          <Select
+            labelId="group-label"
+            id="group-select"
+            value={groupKey}
+            label="Group"
+            onChange={(event) => setGroup(event.target.value)}
           >
-            {member?.member.firstName} {member?.member.middleName}{' '}
-            {member?.member.lastName} ({member?.party})
-          </Typography>
-          <Typography component="h3" className="text-center">
-            {member?.state.name}
-          </Typography>
-          <Image
-            src={`https://theunitedstates.io/images/congress/original/${member?.memberId}.jpg`}
-            alt={member?.memberId || 'Alt'}
-            width={450}
-            height={550}
-            className="rounded mt-4 w-1/2 mx-auto"
-          />
-        </Box>
-      </Modal>
-    </main>
+            <MenuItem value="party">Party</MenuItem>
+            <MenuItem value="title">Title</MenuItem>
+            <MenuItem value="seniority">Seniorty</MenuItem>
+            <MenuItem value="stateId">State</MenuItem>
+          </Select>
+        </FormControl>
+        <Members
+          membersByGroups={membersByGroups}
+          openModal={(id: string) => {
+            setOpen(true);
+            const member = members.find((member) => member.memberId === id);
+            setMember(member);
+          }}
+        />
+        <Modal
+          open={open}
+          onClose={() => setOpen(false)}
+          className="flex items-center justify-center"
+        >
+          <Box className="bg-white p-8 rounded max-w-lg w-full">
+            <Typography
+              id="title"
+              variant="h6"
+              component="h2"
+              className="text-center"
+            >
+              {member?.member.firstName} {member?.member.middleName}{' '}
+              {member?.member.lastName} ({member?.party})
+            </Typography>
+            <Typography component="h3" className="text-center">
+              {member?.state.name}
+            </Typography>
+            <Image
+              src={`https://theunitedstates.io/images/congress/original/${member?.memberId}.jpg`}
+              alt={member?.memberId || 'Alt'}
+              width={450}
+              height={550}
+              className="rounded mt-4 w-1/2 mx-auto"
+            />
+          </Box>
+        </Modal>
+      </main>
+    </AppsTemplate>
   );
 };
 

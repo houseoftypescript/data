@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import Breadcrumbs from '../../../../../components/organisms/Breadcrumbs';
+import AppsTemplate from '../../../../../components/templates/Apps';
 
 const DetailsPage: NextPage = () => {
   const router = useRouter();
@@ -10,23 +11,25 @@ const DetailsPage: NextPage = () => {
   const chamber = router.query.chamber as string;
 
   return (
-    <main className="container mx-auto p-8">
-      <Breadcrumbs />
-      <div className="grid grid-cols-2 gap-4">
-        {['committees', 'members'].map((page) => {
-          return (
-            <Link
-              key={page}
-              href={`/apps/congress/${congress}/${chamber}/${page}`}
-            >
-              <Button variant="outlined" className="w-full uppercase">
-                {page}
-              </Button>
-            </Link>
-          );
-        })}
-      </div>
-    </main>
+    <AppsTemplate>
+      <main className="container mx-auto p-8">
+        <Breadcrumbs />
+        <div className="grid grid-cols-2 gap-4">
+          {['committees', 'members'].map((page) => {
+            return (
+              <Link
+                key={page}
+                href={`/apps/congress/${congress}/${chamber}/${page}`}
+              >
+                <Button variant="outlined" className="w-full uppercase">
+                  {page}
+                </Button>
+              </Link>
+            );
+          })}
+        </div>
+      </main>
+    </AppsTemplate>
   );
 };
 
