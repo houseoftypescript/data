@@ -1,0 +1,71 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model CongressMember {
+  congress  Int
+  member    Member  @relation(fields: [memberId], references: [id])
+  memberId  String
+  chamber   Chamber
+  title     Title
+  party     Party
+  state     State   @relation(fields: [stateId], references: [id])
+  stateId   String
+  district  String  @default("at-large")
+  seniority Int     @default(0)
+
+  @@id([congress, memberId])
+}
+
+enum Party {
+  DEMOCRATIC
+  REPUBLICAN
+  INDEPENDENT
+}
+
+enum Title {
+  REPRESENTATIVE
+  SENATOR
+  DELEGATE
+  RESIDENT_COMMISSIONER
+}
+
+enum Chamber {
+  HOUSE
+  SENATE
+}
+
+model Member {
+  id          String           @id
+  firstName   String
+  middleName  String
+  lastName    String
+  dateOfBirth String
+  gender      Gender
+  Congress    CongressMember[]
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model State {
+  id             String           @id
+  name           String           @default("")
+  capital        String           @default("")
+  largest        String           @default("")
+  level          StateLevel
+  CongressMember CongressMember[]
+}
+
+enum StateLevel {
+  STATE
+  TERRITORY
+  FEDERAL_DISTRICT
+}
