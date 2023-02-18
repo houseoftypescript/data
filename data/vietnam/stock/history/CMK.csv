@@ -1,2 +1,2 @@
-symbol,date,open,high,low,close,volume
-"CMK","2022-12-15","9.5","9.5","9.5","9.5","100"
+symbol,date,open,high,low,close,volume,year,month,week,weekday
+"CMK","2022-12-15","9.5","9.5","9.5","9.5","100","2022","12","50","Thursday"

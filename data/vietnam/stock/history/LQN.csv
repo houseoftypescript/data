@@ -1,2 +1,2 @@
-symbol,date,open,high,low,close,volume
-"LQN","2023-02-17","6","6","6","6","5000"
+symbol,date,open,high,low,close,volume,year,month,week,weekday
+"LQN","2023-02-17","6","6","6","6","5000","2023","02","7","Friday"

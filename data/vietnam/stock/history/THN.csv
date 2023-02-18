@@ -1,2 +1,2 @@
-symbol,date,open,high,low,close,volume
-"THN","2019-04-03","3.73","3.73","3.73","3.73","100"
+symbol,date,open,high,low,close,volume,year,month,week,weekday
+"THN","2019-04-03","3.73","3.73","3.73","3.73","100","2019","04","14","Wednesday"

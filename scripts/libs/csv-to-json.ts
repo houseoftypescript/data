@@ -1,4 +1,4 @@
-export const csvToJSON = (csv: string) => {
+export const csvToJSON = <T>(csv: string): T[] => {
   if (csv === '') {
     return [];
   }
@@ -12,6 +12,6 @@ export const csvToJSON = (csv: string) => {
     row.split('","').forEach((cell: string, index: number) => {
       item[headers[index]] = cell.replace('"', '');
     });
-    return item;
+    return item as T;
   });
 };

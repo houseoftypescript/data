@@ -1,2 +1,2 @@
-symbol,date,open,high,low,close,volume
-"QNW","2022-09-29","10.1","10.1","10.1","10.1","1000"
+symbol,date,open,high,low,close,volume,year,month,week,weekday
+"QNW","2022-09-29","10.1","10.1","10.1","10.1","1000","2022","09","39","Thursday"

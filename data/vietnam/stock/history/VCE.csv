@@ -1,3 +1,3 @@
-symbol,date,open,high,low,close,volume
-"VCE","2017-07-24","8","8","8","8","300"
-"VCE","2017-07-25","8","8","8","8","300"
+symbol,date,open,high,low,close,volume,year,month,week,weekday
+"VCE","2017-07-24","8","8","8","8","300","2017","07","30","Monday"
+"VCE","2017-07-25","8","8","8","8","300","2017","07","30","Tuesday"
