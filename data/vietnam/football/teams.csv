@@ -1,0 +1,25 @@
+id,competitionId,stadiumId,name,fullName,chairman,manager,founded,dissolved,active
+BFC,TIER_ONE,go-dau,Bình Dương,Becamex Bình Dương,,,,,true
+BDFC,TIER_ONE,quy-nhon,Bình Định,Topenland Bình Định,,,,,true
+CAND,TIER_ONE,ninh-binh,Công An Nhân Dân,Công An Nhân Dân,,,,,true
+HAGL,TIER_ONE,pleiku,Gia Lai,Hoàng Anh Gia Lai,,,,,true
+HNFC,TIER_ONE,hang-day,Hà Nội,Hà Nội,,,,,true
+HTFC,TIER_ONE,ha-tinh,Hà Tĩnh,Hồng Lĩnh Hà Tĩnh,,,,,true
+HPFC,TIER_ONE,lach-tray,Hải Phòng,Hải Phòng,,,,,true
+HCMFC,TIER_ONE,thong-nhat,Hồ Chí Minh,Thành Phố Hồ Chí Minh,,,,,true
+KHFC,TIER_ONE,19-thang-8,Khánh Hoà,Khánh Hoà,,,,,true
+NDFC,TIER_ONE,thien-truong,Nam Định,Nam Định,,,,,true
+SLNA,TIER_ONE,vinh,Sông Lam Nghệ An,Sông Lam Nghệ An,,,,,true
+THFC,TIER_ONE,thanh-hoa,Thanh Hoá,Đông Á Thanh Hóa,,,,,true
+VTFC,TIER_ONE,hang-day,Viettel,Viettel,,,,,true
+SHBĐN,TIER_ONE,hoa-xuan,Đà Nẵng,SHB Đà Nẵng,,,,,true
+BRVT,TIER_TWO,ba-ria,Bà Rịa - Vũng Tàu,Bà Rịa - Vũng Tàu,,,,,true
+BPFC,TIER_TWO,binh-phuoc,Bình Phước,Bình Phước,,,,,true
+CFC,TIER_TWO,can-tho,Cần Thơ,Cần Thơ,,,,,true
+HUE,TIER_TWO,tu-do,Huế,Huế,,,,,true
+LFC,TIER_TWO,long-an,Long An,Long An,,,,,true
+PDFC,TIER_TWO,,Phù Đổng,Phù Đổng,,,,,true
+PTFC,TIER_TWO,viet-tri,Phú Thọ,Phú Thọ,,,,,true
+PHFC,TIER_TWO,,Phố Hiến,Phố Hiến,,,,,true
+QNFC,TIER_TWO,cam-pha,Quảng Ninh,Quảng Ninh,,,,,true
+DLK,TIER_TWO,buon-ma-thuot,Đắk Lắk,Đắk Lắk,,,,,true
